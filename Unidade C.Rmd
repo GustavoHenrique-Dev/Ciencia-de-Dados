@@ -1,0 +1,5 @@
+```{r}
+Dados_Unidade_C = dados[dados$unidade == "Unidade C",]
+Dados_Unidade_C
+```
+

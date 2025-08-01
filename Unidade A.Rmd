@@ -1,0 +1,58 @@
+```{r}
+Dados_Unidade_A = dados[dados$unidade == "Unidade A",]
+Dados_Unidade_A
+```
+```{r}
+Gastos_Unidade_A = Dados_Unidade_A$custo_operacional
+summary(Gastos_Unidade_A)
+
+Receita_Unidade_A = Dados_Unidade_A$receita
+summary(Receita_Unidade_A)
+
+Lucro_Unidade_A = Dados_Unidade_A$lucro
+summary(Lucro_Unidade_A)
+```
+```{r}
+Grafico_Gasto_UnidadeA = function(){
+  par(mar = c(5,5,4,1))
+par(family = "sans")
+plot(Gastos_Unidade_A, main = "Gastos X Receita  X Lucros da Unidade A", ylab = "", yaxt = "n", ylim = c(15000, 270000) , xlab = "", xaxt = "n", type = "o", pch = 19, col = "red4")
+axis(side = 2, at = seq(15000, 270000, by = 35000), las = 1, cex.axis = 0.8)
+mtext("Gastos Mensais", side = 2, line = 4)
+axis(side = 1, at = 1:24, labels = 1:24, las = 1, cex.axis = 0.7)
+mtext("Mêses", side = 1, line = 3)
+abline(h = seq(15000, 270000, by = 35000), col = "grey80", lty = "solid")
+legend("topleft", legend=c("Gasto", "Lucro", "Receita"), cex=0.7, fill=c("red4", "green4", "blue4"))
+}
+```
+
+```{r}
+Grafico_Lucro_UnidadeA = function(){
+  par(mar = c(5,5,4,1))
+par(family = "sans")
+plot(Lucro_Unidade_A, main = "Gastos X Receita  X Lucros da Unidade A", ylab = "", yaxt = "n", ylim = c(15000, 270000) , xlab = "", xaxt = "n", type = "o", pch = 19, col = "green4")
+}
+```
+
+```{r}
+Grafico_Receita_UnidadeA = function(){
+  par(mar = c(5,5,4,1))
+par(family = "sans")
+plot(Receita_Unidade_A, main = "Gastos X Receita  X Lucros da Unidade A", ylab = "", yaxt = "n", ylim = c(15000, 270000) , xlab = "", xaxt = "n", type = "o", pch = 19, col = "blue4")
+}
+```
+
+```{r}
+Grafico_Geral_UnidadeA = function(){
+  Grafico_Gasto_UnidadeA()
+par(new = TRUE)
+Grafico_Lucro_UnidadeA()
+par(new = TRUE)
+Grafico_Receita_UnidadeA()
+}
+```
+
+```{r}
+Dados_Unidade_A[c(1,4,14,13,21,22),]
+```
+

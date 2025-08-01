@@ -1,0 +1,79 @@
+
+#A empresa varejista identificou que os lucros estão inconsistentes entre unidades e ao longo dos meses. A diretoria quer entender quais fatores estão afetando negativamente o desempenho financeiro e como otimizar inadimplência, equipe, campanhas e preços para aumentar o lucro.
+
+```{r}
+dados = read.csv("dados_financeiros_varejo.csv", na.strings = "", stringsAsFactors = T)
+dados
+```
+```{r}
+dados$data = as.Date(paste0(dados$data, "-01"), format = "%Y-%m-%d")
+dados
+```
+
+
+#1 Qual a evolução do lucro total da empresa ao longo do tempo?
+```{r}
+install.packages("dplyr")
+library(dplyr)
+
+Lucro_Total_Empresa = dados %>% group_by(data) %>% summarise(LucroMensalEmpresa = sum(lucro))
+Lucro_Total_Empresa
+summary(Lucro_Total_Empresa)
+
+par(mar = c(5,6,4,2))
+plot(Lucro_Total_Empresa$LucroMensalEmpresa, main = "Lucro Total Mensal da Empresa durante 2 anos", ylab = "", yaxt = "n", ylim = c(130000, 280000), xlab = "", xaxt = "n", type = "o", pch = 19)
+axis(side = 2, at = seq(130000, 280000, by = 30000), las = 1, cex.axis = 0.8)
+mtext("Lucro Mensal", side = 2, line = 4)
+axis(side = 1, at = 1:24, labels = 1:24, las = 1, cex.axis = 0.7)
+mtext("Mêses", side = 1, line = 3)
+abline(h = seq(130000, 280000, by = 30000), col = "grey80", lty = "solid")
+
+```
+
+#3 Qual a taxa média de inadimplência por unidade e como ela se comporta com o tempo?
+```{r}
+Media_Inadimplencia_Unidade = dados %>% group_by(unidade) %>% summarise(Taxa_Inadimplencia_Unidade = round(mean(inadimplencia_clientes), 3))
+Media_Inadimplencia_Unidade
+
+summary(Dados_Unidade_A$inadimplencia_clientes)
+
+par(mar = c(5,5,4,2))
+plot(Dados_Unidade_A$inadimplencia_clientes, main = "Inadimplencia dos Clientes na Unidade A", ylab = "", yaxt = "n", xlab = "", xaxt = "n", type = "o", pch = 19 )
+axis(side = 2, at = seq(0.02, 0.09, by = 0.01), las = 1, cex.axis = 0.8)
+mtext("Porcentagem A / M", side = 2, line = 3)
+axis(side = 1, at = 1:24, labels = 1:24, las = 1, cex.axis = 0.7)
+mtext("Mêses", side = 1, line = 3)
+```
+
+#4 Existe correlação entre inadimplência e lucro?
+```{r}
+cor(dados$inadimplencia_clientes, dados$lucro)
+```
+
+#5 Qual a média de funcionários e campanhas por unidade? Isso se relaciona com o lucro?
+```{r}
+Media_Funcionarios_Unidades = Media_Funcionarios_Unidade %>% arrange(desc(Media_Funcionarios_Unidades))
+Media_Funcionarios_Unidades
+
+Media_Campanha_Unidade = Media_Campanhas_Unidade %>% arrange(desc(Media_Campanha_Unidade))
+Media_Campanha_Unidade
+
+Lucro_Por_Unidades = Lucro_Por_Unidade %>% arrange(desc(Lucro_Por_Unidades))
+Lucro_Por_Unidades
+```
+
+```{r}
+install.packages("googledrive")
+library(googledrive)
+
+drive_auth()
+googledrive::drive_deauth()
+googledrive::drive_auth(scopes = "https://www.googleapis.com/auth/drive")
+drive_auth(scopes = "https://www.googleapis.com/auth/drive")
+drive_create(name = "CientistaDeDados2025", format = "document")
+```
+
+
+
+
+
