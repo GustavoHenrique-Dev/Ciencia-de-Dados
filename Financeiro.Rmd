@@ -1,0 +1,123 @@
+#Problema Central:
+
+#A empresa está considerando realizar novos aumentos de preço em determinadas unidades, mas ainda não sabe se os aumentos anteriores foram eficazes. A diretoria quer entender quais fatores realmente aumentam a lucratividade, e se o aumento de preços vale a pena ou afasta clientes (impactando receita ou inadimplência).
+
+
+
+#Objetivo da Análise:
+
+#Ajudar a empresa a tomar decisões baseadas em dados sobre precificação, dimensionamento de equipes, e alocação de campanhas de marketing, respondendo:
+#1 Vale a pena aumentar os preços?
+
+#2 Qual o perfil das unidades mais lucrativas?
+
+#3 Estamos otimizando bem o uso de campanhas e pessoal?
+
+```{r}
+dados = read.csv("atividade_precos_financas.csv", na.strings = "", stringsAsFactors = T)
+dados
+```
+
+```{r}
+AmostraSemAumentoPrecos = sample(c(1:68), 28, replace = F)
+AmostraSemAumentoPrecos
+
+AmostraSemAumentoPreco = SemAumentoPreco[AmostraSemAumentoPrecos,]
+AmostraSemAumentoPreco
+```
+
+
+#1 Qual foi o impacto médio do aumento de preço sobre o lucro, receita e inadimplência?
+```{r}
+AumentoPreco = dados[dados$aumento_preco == 1,]
+AumentoPreco
+
+SemAumentoPreco = dados[dados$aumento_preco == 0,]
+SemAumentoPreco
+
+AmostraSemAumentoPrecos = sample(c(1:68), 28, replace = F)
+AmostraSemAumentoPrecos
+
+AmostraSemAumentoPreco = SemAumentoPreco[AmostraSemAumentoPrecos,]
+AmostraSemAumentoPreco
+
+
+mean(AumentoPreco$lucro)
+mean(AmostraSemAumentoPreco$lucro)
+
+mean(AumentoPreco$receita)
+mean(AmostraSemAumentoPreco$receita)
+
+mean(AumentoPreco$inadimplencia_clientes)
+mean(AmostraSemAumentoPreco$inadimplencia_clientes)
+
+par(mar = c(5,3,3,2))
+plot(AmostraSemAumentoPreco$lucro, type = "o", col = "red4", xaxt = "n", xlab = "")
+legend("topleft", legend=c("Sem Aumento", "Aumento"), cex=0.7, fill=c("red4", "blue4"))
+par(new = TRUE)
+plot(AumentoPreco$lucro, type = "o", col = "blue4", xaxt = "n", xlab = "")
+axis(side = 1, at = seq(1, 28, by = 1), las = 1, cex.axis = 0.5)
+
+```
+
+#2 Unidades que aumentaram o preço tiveram, em média, mais lucro do que as que não aumentaram?
+```{r}
+mean(AumentoPreco$lucro)
+mean(AmostraSemAumentoPreco$lucro)
+```
+
+#3 O número de campanhas ativas cresceu nas unidades que aplicaram aumento de preço?
+```{r}
+sum(AumentoPreco$campanhas_ativas)
+sum(AmostraSemAumentoPreco$campanhas_ativas)
+```
+
+#4 A inadimplência aumentou após o aumento de preços?
+```{r}
+mean(AumentoPreco$inadimplencia_clientes)
+mean(AmostraSemAumentoPreco$inadimplencia_clientes)
+```
+
+#5 Como o número de funcionários está relacionado ao lucro? Há um ponto de equilíbrio?
+```{r}
+cor(dados$funcionarios, dados$lucro)
+dados$FaixaFuncionario = cut(dados$funcionarios, breaks = c(0, 15, 25, 35, 45, 55))
+aggregate(lucro ~ FaixaFuncionario, data = dados, mean)
+```
+
+#6 Existe alguma relação entre campanhas ativas e inadimplência?
+```{r}
+cor(dados$campanhas_ativas, dados$inadimplencia_clientes)
+modelo = lm(campanhas_ativas ~ inadimplencia_clientes, data = dados)
+summary(modelo)
+```
+
+#7 Unidades com mais funcionários tendem a ter maiores custos operacionais? Isso compensa no lucro?
+```{r}
+cor(dados$funcionarios, dados$custo_operacional)
+cor(dados$funcionarios, dados$lucro)
+
+plot(dados$funcionarios, dados$lucro)
+plot(dados$funcionarios, dados$custo_operacional)
+```
+#8 Quais unidades mantêm lucro estável ao longo dos meses?
+```{r}
+install.packages("dplyr")
+library(dplyr)
+
+MediaLucroUnidades = dados %>% group_by(unidade) %>% summarise(MediaLucroUnidade = mean(lucro))
+MediaLucroUnidades
+
+MediaLucroUnidade = MediaLucroUnidades %>% arrange(desc(MediaLucroUnidade))
+MediaLucroUnidade
+
+VariacaoDeLucroUnidade = aggregate(lucro ~ unidade, data = dados, sd)
+VariacaoDeLucroUnidade = VariacaoDeLucroUnidade %>% arrange(lucro)
+VariacaoDeLucroUnidade
+```
+
+#9 Qual unidade é mais eficiente (maior lucro relativo ao custo operacional)?
+```{r}
+
+```
+
