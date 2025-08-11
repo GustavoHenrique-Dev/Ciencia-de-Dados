@@ -1,0 +1,53 @@
+1. Vendas e Popularidade
+
+    Quais marcas têm o maior número de unidades vendidas?
+
+    Quais produtos mais vendidos no segmento masculino e no feminino?
+
+    Existe diferença de volume de vendas entre perfumes masculinos e femininos?
+
+    Qual a relação entre preço e quantidade vendida?
+
+    Há produtos com preço alto mas alta procura (nicho premium)?
+
+2. Preços e Estratégia Comercial
+
+    Qual é o preço médio dos perfumes masculinos vs femininos?
+
+    Há diferença significativa no preço médio entre tipos de perfume (Eau de Parfum, Eau de Toilette, etc.)?
+
+    Qual faixa de preço tem maior número de vendas?
+
+    Existe correlação entre preço e disponibilidade de estoque?
+
+3. Estoque e Disponibilidade
+
+    Qual marca mantém mais produtos disponíveis?
+
+    Há diferença de estoque entre produtos mais vendidos e menos vendidos?
+
+    Qual o tempo médio que um produto leva para ser vendido após atualização no site?
+
+4. Localização e Mercado
+
+    Quais locais de venda têm mais produtos vendidos?
+
+    Há concentração geográfica de vendedores (EUA, Canadá, Hong Kong...)?
+
+    O preço médio varia conforme a localização do vendedor?
+
+5. Comparativo Masculino x Feminino
+
+    Quais categorias ou tipos de perfume são exclusivas de um gênero e quais são comuns?
+
+    Perfumes masculinos têm preços mais altos ou mais baixos que os femininos?
+
+    O volume total de vendas é maior no mercado masculino ou feminino?
+
+6. Tendências e Insights
+
+    Alguma marca domina consistentemente ambos os mercados?
+
+    Existe padrão sazonal ou datas com maior atualização de produtos?
+
+    Quais produtos estão esgotando mais rápido, sugerindo alta demanda?
